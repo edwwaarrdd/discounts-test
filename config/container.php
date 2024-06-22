@@ -1,6 +1,12 @@
 <?php
 
+use App\Customer\Domain\CustomerRepositoryInterface;
+use App\Customer\Infrastructure\FakeApiCustomerRepository;
+use App\Discount\Domain\DiscountRepositoryInterface;
+use App\Discount\Infrastructure\InMemoryDiscountRepository;
 use App\Middleware\ExceptionMiddleware;
+use App\Product\Domain\ProductRepositoryInterface;
+use App\Product\Infrastructure\FakeApiProductRepository;
 use App\Renderer\JsonRenderer;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\RotatingFileHandler;
@@ -20,16 +26,16 @@ use Slim\Interfaces\RouteParserInterface;
 
 return [
     // Application settings
-    'settings' => fn () => require __DIR__ . '/settings.php',
+    'settings' => fn() => require __DIR__.'/settings.php',
 
     App::class => function (ContainerInterface $container) {
         $app = AppFactory::createFromContainer($container);
 
         // Register routes
-        (require __DIR__ . '/routes.php')($app);
+        (require __DIR__.'/routes.php')($app);
 
         // Register middleware
-        (require __DIR__ . '/middleware.php')($app);
+        (require __DIR__.'/middleware.php')($app);
 
         return $app;
     },
@@ -84,7 +90,19 @@ return [
             $container->get(ResponseFactoryInterface::class),
             $container->get(JsonRenderer::class),
             $container->get(LoggerInterface::class),
-            (bool)$settings['display_error_details'],
+            (bool) $settings['display_error_details'],
         );
+    },
+
+    CustomerRepositoryInterface::class => function (ContainerInterface $container) {
+        return new FakeApiCustomerRepository();
+    },
+
+    DiscountRepositoryInterface::class => function (ContainerInterface $container) {
+        return new InMemoryDiscountRepository();
+    },
+
+    ProductRepositoryInterface::class => function (ContainerInterface $container) {
+        return new FakeApiProductRepository();
     },
 ];

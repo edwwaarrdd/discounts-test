@@ -1,7 +1,7 @@
 <?php
 
 // Detect environment
-$_ENV['APP_ENV'] ??= $_SERVER['APP_ENV'] ?? 'dev';
+$_ENV['APP_ENV'] ??= $_SERVER['APP_ENV'] ?? 'production';
 
 // Load default settings
 $settings = require __DIR__ . '/defaults.php';
