@@ -2,17 +2,16 @@
 
 namespace App\Discount\Domain;
 
-use App\Money\Money;
 use App\Order\Domain\AugmentedOrder;
 use App\Order\Domain\AugmentedOrderItem;
 use App\Product\Domain\ValueObjects\CategoryId;
 
-class BulkCategoryDiscountOnCheapestItem implements DiscountInterface
+readonly class BulkCategoryDiscountOnCheapestItem implements DiscountInterface
 {
     public function __construct(
-        private readonly CategoryId $categoryId,
-        private readonly int $minimumQuantity,
-        private readonly int $percentage
+        private CategoryId $categoryId,
+        private int $minimumQuantity,
+        private int $percentage
     ) {
     }
 
@@ -36,12 +35,12 @@ class BulkCategoryDiscountOnCheapestItem implements DiscountInterface
 
         $cheapestItem = $categoryItems[0];
         foreach ($categoryItems as $categoryItem) {
-            if (!$categoryItem->unitPrice->isMoreThan($cheapestItem->unitPrice)) {
+            if (! $categoryItem->unitPrice->isMoreThan($cheapestItem->unitPrice)) {
                 $cheapestItem = $categoryItem;
             }
         }
 
-        $discountValue = $cheapestItem->unitPrice->multiply($this->percentage / 100);
+        $discountValue = $cheapestItem->unitPrice->multiply((string) ($this->percentage / 100));
 
         return new GivenDiscount(
             description: "Cheapest product in category gets $this->percentage% discount",
