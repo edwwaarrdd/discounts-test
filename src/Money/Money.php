@@ -26,6 +26,11 @@ class Money
         return new self($money);
     }
 
+    public static function zero(string $currency): Money
+    {
+        return new self(new MoneyPHP('0', new Currency($currency)));
+    }
+
     public function equals(self $money): bool
     {
         return $this->internalMoneyObject->equals($money->internalMoneyObject);
@@ -36,5 +41,25 @@ class Money
         $decimalFormatter = new DecimalMoneyFormatter(new ISOCurrencies());
 
         return $decimalFormatter->format($this->internalMoneyObject);
+    }
+
+    public function isMoreThan(self $money): bool
+    {
+        return $this->internalMoneyObject->greaterThan($money->internalMoneyObject);
+    }
+
+    public function multiply(string|int $param)
+    {
+        return new self($this->internalMoneyObject->multiply($param));
+    }
+
+    public function add(self $money): Money
+    {
+        return new self($this->internalMoneyObject->add($money->internalMoneyObject));
+    }
+
+    public function isZero(): bool
+    {
+        return $this->internalMoneyObject->isZero();
     }
 }
