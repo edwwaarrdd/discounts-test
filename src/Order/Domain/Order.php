@@ -12,6 +12,7 @@ final class Order
      * @var array<OrderItem>
      */
     public array $orderItems;
+
     public function __construct(
         public OrderId $id,
         public CustomerId $customerId,

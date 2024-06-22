@@ -14,6 +14,7 @@ trait OrderDataTrait
 {
     /**
      * @param  array<AugmentedOrderItem>  $orderItems
+     *
      * @return AugmentedOrder
      */
     private function createAugmentedOrderWithOrderItems(array $orderItems): AugmentedOrder

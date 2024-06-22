@@ -14,8 +14,6 @@ use function array_map;
 use function file_get_contents;
 use function json_decode;
 
-use const JSON_THROW_ON_ERROR;
-
 class FakeApiProductRepository implements ProductRepositoryInterface
 {
     public const string VALID_PRODUCT_ID = 'A101';
@@ -31,6 +29,8 @@ class FakeApiProductRepository implements ProductRepositoryInterface
     }
 
     /**
+     * @param ProductId $id
+     *
      * @throws Exception
      */
     public function get(ProductId $id): Product
@@ -45,19 +45,21 @@ class FakeApiProductRepository implements ProductRepositoryInterface
     }
 
     /**
-     * @return array<Product>
      * @throws Exception
+     *
+     * @return array<Product>
      */
     private function mapProductsFromJsonFile(): array
     {
         $data = json_decode(
-            file_get_contents(__DIR__ . '/products.json'),
+            (string)file_get_contents(__DIR__ . '/products.json'),
             true,
             512,
             JSON_THROW_ON_ERROR
         );
+
         return array_map(
-            fn($product) => new Product(
+            fn ($product) => new Product(
                 id: new ProductId($product['id']),
                 categoryId: new CategoryId($product['category']),
                 description: $product['description'],

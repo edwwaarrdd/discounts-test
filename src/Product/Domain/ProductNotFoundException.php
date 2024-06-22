@@ -3,7 +3,6 @@
 namespace App\Product\Domain;
 
 use App\Product\Domain\ValueObjects\ProductId;
-use Exception;
 use RuntimeException;
 
 class ProductNotFoundException extends RuntimeException

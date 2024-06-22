@@ -25,13 +25,14 @@ final class AugmentedOrder
 
     /**
      * @param  CategoryId  $category
+     *
      * @return array<AugmentedOrderItem>
      */
     public function getOrderItemsOfCategory(CategoryId $category): array
     {
         return array_filter(
             $this->orderItems,
-            fn(AugmentedOrderItem $orderItem) => $orderItem->product->categoryId->matches($category)
+            fn (AugmentedOrderItem $orderItem) => $orderItem->product->categoryId->matches($category)
         );
     }
 }

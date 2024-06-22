@@ -25,7 +25,7 @@ readonly class BulkCategoryDiscountOnCheapestItem implements DiscountInterface
 
         $totalItems = array_reduce(
             $categoryItems,
-            fn(int $carry, AugmentedOrderItem $orderItem) => $carry + $orderItem->quantity,
+            fn (int $carry, AugmentedOrderItem $orderItem) => $carry + $orderItem->quantity,
             0
         );
 
@@ -35,12 +35,12 @@ readonly class BulkCategoryDiscountOnCheapestItem implements DiscountInterface
 
         $cheapestItem = $categoryItems[0];
         foreach ($categoryItems as $categoryItem) {
-            if (! $categoryItem->unitPrice->isMoreThan($cheapestItem->unitPrice)) {
+            if (!$categoryItem->unitPrice->isMoreThan($cheapestItem->unitPrice)) {
                 $cheapestItem = $categoryItem;
             }
         }
 
-        $discountValue = $cheapestItem->unitPrice->multiply((string) ($this->percentage / 100));
+        $discountValue = $cheapestItem->unitPrice->multiply((string)($this->percentage / 100));
 
         return new GivenDiscount(
             description: "Cheapest product in category gets $this->percentage% discount",

@@ -22,7 +22,7 @@ final readonly class AugmentOrderService
         $orderItems = $order->orderItems;
 
         $augmentedOrderItems = array_map(
-            fn(OrderItem $orderItem) => $this->augmentOrderItem($orderItem),
+            fn (OrderItem $orderItem) => $this->augmentOrderItem($orderItem),
             $orderItems
         );
 

@@ -11,10 +11,15 @@ use Money\Parser\DecimalMoneyParser;
 class Money
 {
     public const string EUR = 'EUR';
+
     private function __construct(private readonly MoneyPHP $internalMoneyObject)
     {
     }
 
+    /**
+     * @param  non-empty-string  $amount
+     * @param  non-empty-string  $currency
+     */
     public static function fromDecimal(string $amount, string $currency): Money
     {
         $currencies = new ISOCurrencies();
@@ -26,6 +31,9 @@ class Money
         return new self($money);
     }
 
+    /**
+     * @param  non-empty-string  $currency
+     */
     public static function zero(string $currency): Money
     {
         return new self(new MoneyPHP('0', new Currency($currency)));
@@ -48,7 +56,12 @@ class Money
         return $this->internalMoneyObject->greaterThan($money->internalMoneyObject);
     }
 
-    public function multiply(string|int $param)
+    /**
+     * @param  numeric-string|int  $param
+     *
+     * @return Money
+     */
+    public function multiply(string|int $param): Money
     {
         return new self($this->internalMoneyObject->multiply($param));
     }

@@ -12,7 +12,7 @@ use App\Product\Domain\ValueObjects\CategoryId;
 class InMemoryDiscountRepository implements DiscountRepositoryInterface
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function getAllActive(): array
     {

@@ -31,9 +31,9 @@ readonly class BuyXgetXFreeInCategoryDiscount implements DiscountInterface
                 continue;
             }
 
-            //Calculate how many free items to give.
+            // Calculate how many free items to give.
             $discountTimes = floor($categoryItem->quantity / ($this->buyQuantity + $this->freeQuantity));
-            $freeItems = (int) ($discountTimes * $this->freeQuantity);
+            $freeItems = (int)($discountTimes * $this->freeQuantity);
 
             if ($freeItems === 0) {
                 continue;

@@ -11,18 +11,17 @@ readonly class LoyaltyDiscount implements DiscountInterface
         private Money $minimumRevenue,
         private int $percentage
     ) {
-
     }
 
     public function apply(AugmentedOrder $order): ?GivenDiscount
     {
         $customerTotalRevenue = $order->customer->revenue;
 
-        if (! $customerTotalRevenue->isMoreThan($this->minimumRevenue)) {
+        if (!$customerTotalRevenue->isMoreThan($this->minimumRevenue)) {
             return null;
         }
 
-        $discountValue = $order->totalPrice->multiply((string) ($this->percentage / 100));
+        $discountValue = $order->totalPrice->multiply((string)($this->percentage / 100));
 
         return new GivenDiscount(
             description: 'Loyalty discount for customer',

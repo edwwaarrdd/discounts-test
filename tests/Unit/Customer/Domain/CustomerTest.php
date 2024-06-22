@@ -5,7 +5,6 @@ namespace Test\Unit\Customer\Domain;
 use App\Customer\Domain\Customer;
 use App\Customer\Domain\ValueObjects\CustomerId;
 use App\Money\Money;
-use App\Product\Domain\ValueObjects\CategoryId;
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 

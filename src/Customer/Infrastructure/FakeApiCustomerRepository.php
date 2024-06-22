@@ -9,10 +9,10 @@ use App\Customer\Domain\ValueObjects\CustomerId;
 use App\Money\Money;
 use DateTimeImmutable;
 use Exception;
+
 use function array_map;
 use function file_get_contents;
 use function json_decode;
-use const JSON_THROW_ON_ERROR;
 
 class FakeApiCustomerRepository implements CustomerRepositoryInterface
 {
@@ -29,6 +29,8 @@ class FakeApiCustomerRepository implements CustomerRepositoryInterface
     }
 
     /**
+     * @param CustomerId $id
+     *
      * @throws Exception
      */
     public function get(CustomerId $id): Customer
@@ -43,19 +45,21 @@ class FakeApiCustomerRepository implements CustomerRepositoryInterface
     }
 
     /**
-     * @return array<Customer>
      * @throws Exception
+     *
+     * @return array<Customer>
      */
     private function mapCustomersFromJsonFile(): array
     {
         $data = json_decode(
-            file_get_contents(__DIR__.'/customers.json'),
+            (string)file_get_contents(__DIR__ . '/customers.json'),
             true,
             512,
             JSON_THROW_ON_ERROR
         );
+
         return array_map(
-            fn($customer) => new Customer(
+            fn ($customer) => new Customer(
                 id: new CustomerId($customer['id']),
                 name: $customer['name'],
                 revenue: Money::fromDecimal($customer['revenue'], Money::EUR),

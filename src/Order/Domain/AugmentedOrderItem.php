@@ -4,7 +4,6 @@ namespace App\Order\Domain;
 
 use App\Money\Money;
 use App\Product\Domain\Product;
-use App\Product\Domain\ValueObjects\ProductId;
 
 final readonly class AugmentedOrderItem
 {
