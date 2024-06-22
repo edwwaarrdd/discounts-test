@@ -22,7 +22,7 @@ readonly class LoyaltyDiscount implements DiscountInterface
             return null;
         }
 
-        $discountValue = $order->totalPrice->multiply($this->percentage / 100);
+        $discountValue = $order->totalPrice->multiply((string) ($this->percentage / 100));
 
         return new GivenDiscount(
             description: 'Loyalty discount for customer',

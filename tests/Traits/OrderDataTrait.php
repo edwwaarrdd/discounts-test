@@ -30,4 +30,13 @@ trait OrderDataTrait
             ...$orderItems
         );
     }
+
+    private function createAugmentedOrderWithCustomer(Customer $customer): AugmentedOrder
+    {
+        return new AugmentedOrder(
+            new OrderId('1'),
+            $customer,
+            Money::fromDecimal('100.00', 'EUR'),
+        );
+    }
 }

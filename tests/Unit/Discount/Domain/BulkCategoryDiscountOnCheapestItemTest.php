@@ -2,18 +2,13 @@
 
 namespace Test\Unit\Discount\Domain;
 
-use App\Customer\Domain\Customer;
-use App\Customer\Domain\ValueObjects\CustomerId;
 use App\Discount\Domain\BulkCategoryDiscountOnCheapestItem;
 use App\Discount\Domain\GivenDiscount;
 use App\Money\Money;
-use App\Order\Domain\AugmentedOrder;
 use App\Order\Domain\AugmentedOrderItem;
-use App\Order\Domain\ValueObjects\OrderId;
 use App\Product\Domain\Product;
 use App\Product\Domain\ValueObjects\CategoryId;
 use App\Product\Domain\ValueObjects\ProductId;
-use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 use Test\Traits\OrderDataTrait;
 
