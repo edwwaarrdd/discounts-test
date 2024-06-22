@@ -15,9 +15,12 @@ use App\Product\Domain\ValueObjects\CategoryId;
 use App\Product\Domain\ValueObjects\ProductId;
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
+use Test\Traits\OrderDataTrait;
 
 class BulkCategoryDiscountOnCheapestItemTest extends TestCase
 {
+    use OrderDataTrait;
+
     public function testDiscountIsAppliedWhenMinimumQuantityIsMet(): void
     {
         $discount = new BulkCategoryDiscountOnCheapestItem(
@@ -26,7 +29,7 @@ class BulkCategoryDiscountOnCheapestItemTest extends TestCase
             20
         );
 
-        $order = $this->createOrderWithOrderItems([
+        $order = $this->createAugmentedOrderWithOrderItems([
             new AugmentedOrderItem(
                 new Product(
                     new ProductId('1'),
@@ -71,7 +74,7 @@ class BulkCategoryDiscountOnCheapestItemTest extends TestCase
             20
         );
 
-        $order = $this->createOrderWithOrderItems([
+        $order = $this->createAugmentedOrderWithOrderItems([
             new AugmentedOrderItem(
                 new Product(
                     new ProductId('1'),
@@ -98,7 +101,7 @@ class BulkCategoryDiscountOnCheapestItemTest extends TestCase
             20
         );
 
-        $order = $this->createOrderWithOrderItems([
+        $order = $this->createAugmentedOrderWithOrderItems([
             new AugmentedOrderItem(
                 new Product(
                     new ProductId('1'),
@@ -115,24 +118,5 @@ class BulkCategoryDiscountOnCheapestItemTest extends TestCase
         $givenDiscount = $discount->apply($order);
 
         $this->assertNull($givenDiscount);
-    }
-
-    /**
-     * @param  array<AugmentedOrderItem>  $orderItems
-     * @return AugmentedOrder
-     */
-    private function createOrderWithOrderItems(array $orderItems): AugmentedOrder
-    {
-        return new AugmentedOrder(
-            new OrderId('1'),
-            new Customer(
-                new CustomerId('1'),
-                'John Doe',
-                Money::fromDecimal('100.00', 'EUR'),
-                new DateTimeImmutable('2024-01-01')
-            ),
-            Money::fromDecimal('100.00', 'EUR'),
-            ...$orderItems
-        );
     }
 }

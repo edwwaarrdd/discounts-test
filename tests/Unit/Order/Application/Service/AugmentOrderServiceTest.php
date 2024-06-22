@@ -42,7 +42,7 @@ final class AugmentOrderServiceTest extends TestCase
                 id: new CustomerId('customer-id'),
                 name: 'Customer',
                 revenue: Money::fromDecimal('1000', Money::EUR),
-                customerSince: new DateTimeImmutable('2021-01-01')
+                customerSince: new DateTimeImmutable('2024-01-01')
             )
         );
 

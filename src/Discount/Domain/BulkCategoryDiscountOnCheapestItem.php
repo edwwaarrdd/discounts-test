@@ -48,7 +48,7 @@ readonly class BulkCategoryDiscountOnCheapestItem implements DiscountInterface
             metadata: [
                 'percentage' => $this->percentage,
                 'minimumQuantity' => $this->minimumQuantity,
-                'productId' => $cheapestItem->product->id,
+                'productId' => $cheapestItem->product->id->id,
             ]
         );
     }
