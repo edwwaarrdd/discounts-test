@@ -5,11 +5,11 @@ namespace App\Discount\Domain;
 use App\Money\Money;
 use App\Order\Domain\AugmentedOrder;
 
-class LoyaltyDiscount implements DiscountInterface
+readonly class LoyaltyDiscount implements DiscountInterface
 {
     public function __construct(
-        private readonly Money $minimumRevenue,
-        private readonly int $percentage
+        private Money $minimumRevenue,
+        private int $percentage
     ) {
 
     }
