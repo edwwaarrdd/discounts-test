@@ -14,4 +14,14 @@ final readonly class OrderItem
         public Money $totalPrice
     ) {
     }
+
+    public static function fromArray(array $data): self
+    {
+        return new self(
+            productId: new ProductId($data['product-id']),
+            quantity: $data['quantity'],
+            unitPrice: Money::fromDecimal($data['unit-price'], Money::EUR),
+            totalPrice: Money::fromDecimal($data['total'], Money::EUR),
+        );
+    }
 }
