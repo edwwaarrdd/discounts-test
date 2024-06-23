@@ -40,4 +40,18 @@ trait OrderDataTrait
             Money::fromDecimal('100.00', 'EUR'),
         );
     }
+
+    private function createAugmentedOrder(): AugmentedOrder
+    {
+        return new AugmentedOrder(
+            new OrderId('1'),
+            new Customer(
+                new CustomerId('1'),
+                'John Doe',
+                Money::fromDecimal('100.00', 'EUR'),
+                new DateTimeImmutable('2024-01-01')
+            ),
+            Money::fromDecimal('100.00', 'EUR'),
+        );
+    }
 }
