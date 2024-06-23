@@ -1,0 +1,14 @@
+{
+  "totalDiscount": "1.95",
+  "discounts": [
+    {
+      "description": "Cheapest product in category gets 20% discount",
+      "discountValue": "1.95",
+      "metadata": {
+        "percentage": 20,
+        "minimumQuantity": 2,
+        "productId": "A101"
+      }
+    }
+  ]
+}

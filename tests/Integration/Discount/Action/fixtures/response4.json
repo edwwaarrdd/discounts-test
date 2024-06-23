@@ -1,0 +1,28 @@
+{
+  "totalDiscount": "9.98",
+  "discounts": [
+    {
+      "description": "Buy 5 products in category get 1 free discount",
+      "discountValue": "4.99",
+      "metadata": {
+        "categoryId": "2",
+        "buyQuantity": 5,
+        "freeQuantity": 1,
+        "productsThatReceivedFreeItems": [
+          {
+            "productId": "B102",
+            "quantity": 1
+          }
+        ]
+      }
+    },
+    {
+      "description": "Loyalty discount for customer",
+      "discountValue": "4.99",
+      "metadata": {
+        "percentage": 10,
+        "minimumRevenue": "1000.00"
+      }
+    }
+  ]
+}

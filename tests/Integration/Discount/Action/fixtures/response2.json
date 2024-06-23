@@ -1,0 +1,13 @@
+{
+  "totalDiscount": "2.50",
+  "discounts": [
+    {
+      "description": "Loyalty discount for customer",
+      "discountValue": "2.50",
+      "metadata": {
+        "percentage": 10,
+        "minimumRevenue": "1000.00"
+      }
+    }
+  ]
+}

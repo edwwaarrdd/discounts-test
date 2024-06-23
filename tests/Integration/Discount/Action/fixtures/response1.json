@@ -1,0 +1,20 @@
+{
+  "totalDiscount": "4.99",
+  "discounts": [
+    {
+      "description": "Buy 5 products in category get 1 free discount",
+      "discountValue": "4.99",
+      "metadata": {
+        "categoryId": "2",
+        "buyQuantity": 5,
+        "freeQuantity": 1,
+        "productsThatReceivedFreeItems": [
+          {
+            "productId": "B102",
+            "quantity": 1
+          }
+        ]
+      }
+    }
+  ]
+}
