@@ -3,9 +3,19 @@
 namespace Test\Integration\Discount\Action;
 
 use App\Customer\Domain\CustomerNotFoundException;
+use App\Customer\Domain\CustomerRepositoryInterface;
 use App\Customer\Domain\ValueObjects\CustomerId;
+use App\Customer\Infrastructure\FakeApiCustomerRepository;
+use App\Discount\Domain\BulkCategoryDiscountOnCheapestItem;
+use App\Discount\Domain\BuyXgetXFreeInCategoryDiscount;
+use App\Discount\Domain\DiscountRepositoryInterface;
+use App\Discount\Domain\LoyaltyDiscount;
+use App\Money\Money;
 use App\Product\Domain\ProductNotFoundException;
+use App\Product\Domain\ProductRepositoryInterface;
+use App\Product\Domain\ValueObjects\CategoryId;
 use App\Product\Domain\ValueObjects\ProductId;
+use App\Product\Infrastructure\FakeApiProductRepository;
 use Fig\Http\Message\StatusCodeInterface;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -17,6 +27,14 @@ use function json_encode;
 class CalculateDiscountActionTest extends TestCase
 {
     use AppTestTrait;
+
+    public function setUp(): void
+    {
+        $this->setUpApp();
+        $this->setContainerValue(DiscountRepositoryInterface::class, $this->createDiscountRepository());
+        $this->setContainerValue(ProductRepositoryInterface::class, new FakeApiProductRepository());
+        $this->setContainerValue(CustomerRepositoryInterface::class, new FakeApiCustomerRepository());
+    }
 
     private const string URL = '/discounts/calculate';
 
@@ -124,5 +142,30 @@ class CalculateDiscountActionTest extends TestCase
                 'responseJson' => 'response4.json',
             ],
         ];
+    }
+
+    private function createDiscountRepository(): DiscountRepositoryInterface
+    {
+        return new class () implements DiscountRepositoryInterface {
+            public function getAllActive(): array
+            {
+                return [
+                    new BulkCategoryDiscountOnCheapestItem(
+                        categoryId: new CategoryId('1'),
+                        minimumQuantity: 2,
+                        percentage: 20
+                    ),
+                    new BuyXgetXFreeInCategoryDiscount(
+                        categoryId: new CategoryId('2'),
+                        buyQuantity: 5,
+                        freeQuantity: 1
+                    ),
+                    new LoyaltyDiscount(
+                        minimumRevenue: Money::fromDecimal('1000', Money::EUR),
+                        percentage: 10
+                    ),
+                ];
+            }
+        };
     }
 }
