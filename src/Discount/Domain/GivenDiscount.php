@@ -7,7 +7,7 @@ use App\Money\Money;
 final readonly class GivenDiscount
 {
     /**
-     * @param  array<string, mixed>  $metadata
+     * @param array<string, mixed>  $metadata
      * @param string $description
      * @param Money $discountValue
      */

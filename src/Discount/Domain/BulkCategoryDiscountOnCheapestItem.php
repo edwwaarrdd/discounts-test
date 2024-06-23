@@ -6,7 +6,7 @@ use App\Order\Domain\AugmentedOrder;
 use App\Order\Domain\AugmentedOrderItem;
 use App\Product\Domain\ValueObjects\CategoryId;
 
-readonly class BulkCategoryDiscountOnCheapestItem implements DiscountInterface
+final readonly class BulkCategoryDiscountOnCheapestItem implements DiscountInterface
 {
     public function __construct(
         private CategoryId $categoryId,
@@ -48,7 +48,7 @@ readonly class BulkCategoryDiscountOnCheapestItem implements DiscountInterface
             metadata: [
                 'percentage' => $this->percentage,
                 'minimumQuantity' => $this->minimumQuantity,
-                'productId' => $cheapestItem->product->id->id,
+                'productId' => $cheapestItem->product->id->value,
             ]
         );
     }

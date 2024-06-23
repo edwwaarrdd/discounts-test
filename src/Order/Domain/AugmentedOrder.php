@@ -10,7 +10,7 @@ use App\Product\Domain\ValueObjects\CategoryId;
 final class AugmentedOrder
 {
     /**
-     * @var array<AugmentedOrderItem>
+     * @var AugmentedOrderItem[]
      */
     public array $orderItems;
 
@@ -24,9 +24,9 @@ final class AugmentedOrder
     }
 
     /**
-     * @param  CategoryId  $category
+     * @param CategoryId $category
      *
-     * @return array<AugmentedOrderItem>
+     * @return AugmentedOrderItem[]
      */
     public function getOrderItemsOfCategory(CategoryId $category): array
     {

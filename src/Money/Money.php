@@ -8,7 +8,7 @@ use Money\Formatter\DecimalMoneyFormatter;
 use Money\Money as MoneyPHP;
 use Money\Parser\DecimalMoneyParser;
 
-class Money
+final class Money
 {
     public const string EUR = 'EUR';
 
@@ -58,8 +58,6 @@ class Money
 
     /**
      * @param  numeric-string|int  $param
-     *
-     * @return Money
      */
     public function multiply(string|int $param): Money
     {

@@ -18,18 +18,18 @@ class InMemoryDiscountRepository implements DiscountRepositoryInterface
     {
         return [
             new BulkCategoryDiscountOnCheapestItem(
-                new CategoryId('1'),
-                2,
-                20
+                categoryId: new CategoryId('1'),
+                minimumQuantity: 2,
+                percentage: 20
             ),
             new BuyXgetXFreeInCategoryDiscount(
-                new CategoryId('2'),
-                5,
-                1
+                categoryId: new CategoryId('2'),
+                buyQuantity: 5,
+                freeQuantity: 1
             ),
             new LoyaltyDiscount(
-                Money::fromDecimal('1000', Money::EUR),
-                10
+                minimumRevenue: Money::fromDecimal('1000', Money::EUR),
+                percentage: 10
             ),
         ];
     }

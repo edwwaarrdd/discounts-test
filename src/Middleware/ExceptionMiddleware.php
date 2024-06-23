@@ -3,6 +3,7 @@
 namespace App\Middleware;
 
 use App\Renderer\JsonRenderer;
+use App\Shared\Domain\DomainRecordNotFoundException;
 use DomainException;
 use Fig\Http\Message\StatusCodeInterface;
 use InvalidArgumentException;
@@ -121,6 +122,10 @@ final class ExceptionMiddleware implements MiddlewareInterface
 
         if ($exception instanceof DomainException || $exception instanceof InvalidArgumentException) {
             $statusCode = StatusCodeInterface::STATUS_BAD_REQUEST;
+        }
+
+        if ($exception instanceof DomainRecordNotFoundException) {
+            $statusCode = StatusCodeInterface::STATUS_NOT_FOUND;
         }
 
         return $statusCode;

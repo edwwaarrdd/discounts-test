@@ -9,9 +9,9 @@ use App\Order\Domain\AugmentedOrder;
 use function array_filter;
 use function array_values;
 
-class CalculateDiscountsService
+final readonly class CalculateDiscountsService
 {
-    public function __construct(private readonly DiscountRepositoryInterface $discountRepository)
+    public function __construct(private DiscountRepositoryInterface $discountRepository)
     {
     }
 

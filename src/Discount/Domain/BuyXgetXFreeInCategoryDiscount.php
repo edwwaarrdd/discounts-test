@@ -6,7 +6,7 @@ use App\Money\Money;
 use App\Order\Domain\AugmentedOrder;
 use App\Product\Domain\ValueObjects\CategoryId;
 
-readonly class BuyXgetXFreeInCategoryDiscount implements DiscountInterface
+final readonly class BuyXgetXFreeInCategoryDiscount implements DiscountInterface
 {
     public function __construct(
         private CategoryId $categoryId,
@@ -41,7 +41,7 @@ readonly class BuyXgetXFreeInCategoryDiscount implements DiscountInterface
 
             $totalDiscountValue = $totalDiscountValue->add($categoryItem->unitPrice->multiply($freeItems));
             $productsThatReceivedFreeItems[] = [
-                'productId' => $categoryItem->product->id->id,
+                'productId' => $categoryItem->product->id->value,
                 'quantity' => $freeItems,
             ];
         }
@@ -54,7 +54,7 @@ readonly class BuyXgetXFreeInCategoryDiscount implements DiscountInterface
             description: "Buy $this->buyQuantity products in category get $this->freeQuantity free discount",
             discountValue: $totalDiscountValue,
             metadata: [
-                'categoryId' => $this->categoryId->id,
+                'categoryId' => $this->categoryId->value,
                 'buyQuantity' => $this->buyQuantity,
                 'freeQuantity' => $this->freeQuantity,
                 'productsThatReceivedFreeItems' => $productsThatReceivedFreeItems,

@@ -8,7 +8,7 @@ use App\Customer\Domain\CustomerRepositoryInterface;
 use App\Customer\Domain\ValueObjects\CustomerId;
 use App\Money\Money;
 use DateTimeImmutable;
-use Exception;
+use InvalidArgumentException;
 
 use function array_map;
 use function file_get_contents;
@@ -18,9 +18,7 @@ class FakeApiCustomerRepository implements CustomerRepositoryInterface
 {
     public const string VALID_CUSTOMER_ID = '1';
     public const string INVALID_CUSTOMER_ID = 'UNKNOWN';
-    /**
-     * @var array<Customer>
-     */
+    /** @var Customer[] */
     private readonly array $customers;
 
     public function __construct()
@@ -28,11 +26,6 @@ class FakeApiCustomerRepository implements CustomerRepositoryInterface
         $this->customers = $this->mapCustomersFromJsonFile();
     }
 
-    /**
-     * @param CustomerId $id
-     *
-     * @throws Exception
-     */
     public function get(CustomerId $id): Customer
     {
         foreach ($this->customers as $customer) {
@@ -44,11 +37,7 @@ class FakeApiCustomerRepository implements CustomerRepositoryInterface
         throw new CustomerNotFoundException($id);
     }
 
-    /**
-     * @throws Exception
-     *
-     * @return array<Customer>
-     */
+    /** @return Customer[] */
     private function mapCustomersFromJsonFile(): array
     {
         $data = json_decode(
@@ -59,12 +48,20 @@ class FakeApiCustomerRepository implements CustomerRepositoryInterface
         );
 
         return array_map(
-            fn ($customer) => new Customer(
-                id: new CustomerId($customer['id']),
-                name: $customer['name'],
-                revenue: Money::fromDecimal($customer['revenue'], Money::EUR),
-                customerSince: new DateTimeImmutable($customer['since']),
-            ),
+            function ($customer) {
+                $customerSince = DateTimeImmutable::createFromFormat('Y-m-d', $customer['since']);
+
+                if ($customerSince === false) {
+                    throw new InvalidArgumentException('Invalid since date format for customer ' . $customer['id']);
+                }
+
+                return new Customer(
+                    id: new CustomerId($customer['id']),
+                    name: $customer['name'],
+                    revenue: Money::fromDecimal($customer['revenue'], Money::EUR),
+                    customerSince: $customerSince,
+                );
+            },
             $data
         );
     }

@@ -4,12 +4,12 @@ namespace App\Product\Domain\ValueObjects;
 
 final readonly class ProductId
 {
-    public function __construct(public string $id)
+    public function __construct(public string $value)
     {
     }
 
-    public function matches(ProductId $id): bool
+    public function matches(ProductId $productId): bool
     {
-        return $this->id === $id->id;
+        return $this->value === $productId->value;
     }
 }

@@ -7,10 +7,8 @@ use App\Discount\Domain\TotalDiscount;
 use App\Order\Application\Service\AugmentOrderService;
 use App\Order\Domain\Order;
 use App\Renderer\JsonRenderer;
-use Fig\Http\Message\StatusCodeInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Throwable;
 
 final readonly class CalculateDiscountAction
 {
@@ -23,13 +21,7 @@ final readonly class CalculateDiscountAction
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
-        try {
-            $order = Order::fromArray((array)$request->getParsedBody());
-        } catch (Throwable $exception) {
-            return $this->renderer
-                ->json($response, ['error' => 'Invalid order structure'])
-                ->withStatus(StatusCodeInterface::STATUS_UNPROCESSABLE_ENTITY);
-        }
+        $order = Order::fromArray((array)$request->getParsedBody());
 
         $augmentedOrder = $this->augmentOrderService->execute($order);
 
@@ -39,7 +31,7 @@ final readonly class CalculateDiscountAction
     }
 
     /**
-     * @param TotalDiscount $totalDiscount
+     * @param  TotalDiscount  $totalDiscount
      *
      * @return array<string, mixed>
      */

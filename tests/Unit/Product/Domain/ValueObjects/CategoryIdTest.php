@@ -16,7 +16,7 @@ class CategoryIdTest extends TestCase
 
     public function testCategoryIdCanBeCreatedWithValidId(): void
     {
-        $this->assertEquals('valid-id', $this->categoryId->id);
+        $this->assertEquals('valid-id', $this->categoryId->value);
     }
 
     public function testCategoryIdMatchesReturnsTrueWhenIdsMatch(): void

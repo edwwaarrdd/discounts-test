@@ -16,7 +16,7 @@ class CustomerIdTest extends TestCase
 
     public function testCustomerIdCanBeCreatedWithValidId(): void
     {
-        $this->assertEquals('valid-id', $this->customerId->id);
+        $this->assertEquals('valid-id', $this->customerId->value);
     }
 
     public function testCustomerIdMatchesReturnsTrueWhenIdsMatch(): void

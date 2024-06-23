@@ -5,7 +5,7 @@ namespace App\Discount\Domain;
 use App\Money\Money;
 use App\Order\Domain\AugmentedOrder;
 
-readonly class LoyaltyDiscount implements DiscountInterface
+final readonly class LoyaltyDiscount implements DiscountInterface
 {
     public function __construct(
         private Money $minimumRevenue,

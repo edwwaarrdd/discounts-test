@@ -4,12 +4,12 @@ namespace App\Customer\Domain\ValueObjects;
 
 final readonly class CustomerId
 {
-    public function __construct(public string $id)
+    public function __construct(public string $value)
     {
     }
 
-    public function matches(CustomerId $id): bool
+    public function matches(self $customerId): bool
     {
-        return $this->id === $id->id;
+        return $this->value === $customerId->value;
     }
 }

@@ -16,7 +16,7 @@ class ProductIdTest extends TestCase
 
     public function testProductIdCanBeCreatedWithValidId(): void
     {
-        $this->assertEquals('valid-id', $this->productId->id);
+        $this->assertEquals('valid-id', $this->productId->value);
     }
 
     public function testProductIdMatchesReturnsTrueWhenIdsMatch(): void

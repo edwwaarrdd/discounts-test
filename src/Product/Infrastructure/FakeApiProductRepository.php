@@ -8,7 +8,6 @@ use App\Product\Domain\ProductNotFoundException;
 use App\Product\Domain\ProductRepositoryInterface;
 use App\Product\Domain\ValueObjects\CategoryId;
 use App\Product\Domain\ValueObjects\ProductId;
-use Exception;
 
 use function array_map;
 use function file_get_contents;
@@ -19,7 +18,7 @@ class FakeApiProductRepository implements ProductRepositoryInterface
     public const string VALID_PRODUCT_ID = 'A101';
     public const string INVALID_PRODUCT_ID = 'UNKNOWN';
     /**
-     * @var array<Product>
+     * @var Product[]
      */
     private readonly array $products;
 
@@ -30,8 +29,6 @@ class FakeApiProductRepository implements ProductRepositoryInterface
 
     /**
      * @param ProductId $id
-     *
-     * @throws Exception
      */
     public function get(ProductId $id): Product
     {
@@ -45,9 +42,7 @@ class FakeApiProductRepository implements ProductRepositoryInterface
     }
 
     /**
-     * @throws Exception
-     *
-     * @return array<Product>
+     * @return Product[]
      */
     private function mapProductsFromJsonFile(): array
     {

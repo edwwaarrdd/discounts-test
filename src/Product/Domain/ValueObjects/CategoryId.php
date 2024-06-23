@@ -4,12 +4,12 @@ namespace App\Product\Domain\ValueObjects;
 
 final readonly class CategoryId
 {
-    public function __construct(public string $id)
+    public function __construct(public string $value)
     {
     }
 
-    public function matches(CategoryId $id): bool
+    public function matches(CategoryId $categoryId): bool
     {
-        return $this->id === $id->id;
+        return $this->value === $categoryId->value;
     }
 }

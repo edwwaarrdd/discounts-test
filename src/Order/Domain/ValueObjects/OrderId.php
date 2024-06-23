@@ -4,12 +4,12 @@ namespace App\Order\Domain\ValueObjects;
 
 final readonly class OrderId
 {
-    public function __construct(public string $id)
+    public function __construct(public string $value)
     {
     }
 
-    public function matches(self $id): bool
+    public function matches(self $orderId): bool
     {
-        return $this->id === $id->id;
+        return $this->value === $orderId->value;
     }
 }
