@@ -26,16 +26,16 @@ use Slim\Interfaces\RouteParserInterface;
 
 return [
     // Application settings
-    'settings' => fn() => require __DIR__.'/settings.php',
+    'settings' => fn () => require __DIR__ . '/settings.php',
 
     App::class => function (ContainerInterface $container) {
         $app = AppFactory::createFromContainer($container);
 
         // Register routes
-        (require __DIR__.'/routes.php')($app);
+        (require __DIR__ . '/routes.php')($app);
 
         // Register middleware
-        (require __DIR__.'/middleware.php')($app);
+        (require __DIR__ . '/middleware.php')($app);
 
         return $app;
     },
@@ -90,7 +90,7 @@ return [
             $container->get(ResponseFactoryInterface::class),
             $container->get(JsonRenderer::class),
             $container->get(LoggerInterface::class),
-            (bool) $settings['display_error_details'],
+            (bool)$settings['display_error_details'],
         );
     },
 

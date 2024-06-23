@@ -5,7 +5,6 @@ namespace App\Order\Domain;
 use App\Customer\Domain\ValueObjects\CustomerId;
 use App\Money\Money;
 use App\Order\Domain\ValueObjects\OrderId;
-use App\Product\Domain\ValueObjects\ProductId;
 
 final class Order
 {
@@ -23,10 +22,13 @@ final class Order
         $this->orderItems = $orderItems;
     }
 
+    /**
+     * @param  array<string, mixed>  $data
+     */
     public static function fromArray(array $data): self
     {
         $orderItems = array_map(
-            fn(array $item) => OrderItem::fromArray($item),
+            fn (array $item) => OrderItem::fromArray($item),
             $data['items'],
         );
 

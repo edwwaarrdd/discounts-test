@@ -19,14 +19,12 @@ final readonly class CalculateDiscountAction
         private AugmentOrderService $augmentOrderService,
         private CalculateDiscountsService $calculateDiscounts,
     ) {
-
     }
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {
         try {
-            $order = Order::fromArray($request->getParsedBody());
-
+            $order = Order::fromArray((array)$request->getParsedBody());
         } catch (Throwable $exception) {
             return $this->renderer
                 ->json($response, ['error' => 'Invalid order structure'])
@@ -37,15 +35,19 @@ final readonly class CalculateDiscountAction
 
         $discounts = $this->calculateDiscounts->execute($augmentedOrder);
 
-
         return $this->renderer->json($response, $this->buildJsonResponse($discounts));
     }
 
+    /**
+     * @param TotalDiscount $totalDiscount
+     *
+     * @return array<string, mixed>
+     */
     private function buildJsonResponse(TotalDiscount $totalDiscount): array
     {
         return [
             'totalDiscount' => $totalDiscount->getTotal()->toDecimal(),
-            'discounts' => array_map(fn($discount) => $discount->toArray(), $totalDiscount->givenDiscounts),
+            'discounts' => array_map(fn ($discount) => $discount->toArray(), $totalDiscount->givenDiscounts),
         ];
     }
 }
