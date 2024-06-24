@@ -7,7 +7,7 @@ use App\Customer\Domain\CustomerRepositoryInterface;
 use App\Customer\Domain\ValueObjects\CustomerId;
 use App\Customer\Infrastructure\FakeApiCustomerRepository;
 use App\Discount\Domain\BulkCategoryDiscountOnCheapestItem;
-use App\Discount\Domain\BuyXgetXFreeInCategoryDiscount;
+use App\Discount\Domain\BuyXGetXFreeInCategoryDiscount;
 use App\Discount\Domain\DiscountRepositoryInterface;
 use App\Discount\Domain\LoyaltyDiscount;
 use App\Money\Money;
@@ -155,7 +155,7 @@ class CalculateDiscountActionTest extends TestCase
                         minimumQuantity: 2,
                         percentage: 20
                     ),
-                    new BuyXgetXFreeInCategoryDiscount(
+                    new BuyXGetXFreeInCategoryDiscount(
                         categoryId: new CategoryId('2'),
                         buyQuantity: 5,
                         freeQuantity: 1

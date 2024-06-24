@@ -3,7 +3,7 @@
 namespace App\Discount\Infrastructure;
 
 use App\Discount\Domain\BulkCategoryDiscountOnCheapestItem;
-use App\Discount\Domain\BuyXgetXFreeInCategoryDiscount;
+use App\Discount\Domain\BuyXGetXFreeInCategoryDiscount;
 use App\Discount\Domain\DiscountRepositoryInterface;
 use App\Discount\Domain\LoyaltyDiscount;
 use App\Money\Money;
@@ -22,7 +22,7 @@ class InMemoryDiscountRepository implements DiscountRepositoryInterface
                 minimumQuantity: 2,
                 percentage: 20
             ),
-            new BuyXgetXFreeInCategoryDiscount(
+            new BuyXGetXFreeInCategoryDiscount(
                 categoryId: new CategoryId('2'),
                 buyQuantity: 5,
                 freeQuantity: 1

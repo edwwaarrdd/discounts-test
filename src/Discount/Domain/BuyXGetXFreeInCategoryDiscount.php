@@ -6,7 +6,7 @@ use App\Money\Money;
 use App\Order\Domain\AugmentedOrder;
 use App\Product\Domain\ValueObjects\CategoryId;
 
-final readonly class BuyXgetXFreeInCategoryDiscount implements DiscountInterface
+final readonly class BuyXGetXFreeInCategoryDiscount implements DiscountInterface
 {
     public function __construct(
         private CategoryId $categoryId,
@@ -15,6 +15,13 @@ final readonly class BuyXgetXFreeInCategoryDiscount implements DiscountInterface
     ) {
     }
 
+    /**
+     * Take all items in the order that belong to the category
+     * For each item check if the quantity is greater than the buy quantity
+     * and calculate how many free items to give.
+     *
+     * @param AugmentedOrder $order
+     * */
     public function apply(AugmentedOrder $order): ?GivenDiscount
     {
         $categoryItems = $order->getOrderItemsOfCategory($this->categoryId);

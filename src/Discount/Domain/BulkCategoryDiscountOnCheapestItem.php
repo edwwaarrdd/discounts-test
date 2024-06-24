@@ -15,6 +15,13 @@ final readonly class BulkCategoryDiscountOnCheapestItem implements DiscountInter
     ) {
     }
 
+    /**
+     * Take all items in the order that belong to the category
+     * check if the total quantity of items in the category is greater than the minimum quantity
+     * and apply the discount to the cheapest one.
+     *
+     * @param AugmentedOrder $order
+     * */
     public function apply(AugmentedOrder $order): ?GivenDiscount
     {
         $categoryItems = $order->getOrderItemsOfCategory($this->categoryId);
@@ -33,12 +40,7 @@ final readonly class BulkCategoryDiscountOnCheapestItem implements DiscountInter
             return null;
         }
 
-        $cheapestItem = $categoryItems[0];
-        foreach ($categoryItems as $categoryItem) {
-            if (!$categoryItem->unitPrice->isMoreThan($cheapestItem->unitPrice)) {
-                $cheapestItem = $categoryItem;
-            }
-        }
+        $cheapestItem = $this->findCheapestItem($categoryItems);
 
         $discountValue = $cheapestItem->unitPrice->multiply((string)($this->percentage / 100));
 
@@ -51,5 +53,22 @@ final readonly class BulkCategoryDiscountOnCheapestItem implements DiscountInter
                 'productId' => $cheapestItem->product->id->value,
             ]
         );
+    }
+
+    /**
+     * @param  AugmentedOrderItem[]  $categoryItems
+     *
+     * @return AugmentedOrderItem
+     */
+    private function findCheapestItem(array $categoryItems): AugmentedOrderItem
+    {
+        $cheapestItem = $categoryItems[0];
+        foreach ($categoryItems as $categoryItem) {
+            if (!$categoryItem->unitPrice->isMoreThan($cheapestItem->unitPrice)) {
+                $cheapestItem = $categoryItem;
+            }
+        }
+
+        return $cheapestItem;
     }
 }

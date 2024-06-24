@@ -13,6 +13,12 @@ final readonly class LoyaltyDiscount implements DiscountInterface
     ) {
     }
 
+    /**
+     * Check if the customer's total revenue is more than the minimum revenue to receive the discount
+     * and apply the discount.
+     *
+     * @param AugmentedOrder $order
+     * */
     public function apply(AugmentedOrder $order): ?GivenDiscount
     {
         $customerTotalRevenue = $order->customer->revenue;

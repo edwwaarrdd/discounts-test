@@ -25,6 +25,7 @@ final readonly class CalculateDiscountsService
             $appliedDiscounts[] = $discount->apply($augmentedOrder);
         }
 
+        // Filter out empty discounts and reset the keys
         return new TotalDiscount(...array_values(array_filter($appliedDiscounts)));
     }
 }

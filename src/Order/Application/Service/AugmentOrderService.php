@@ -17,6 +17,10 @@ final readonly class AugmentOrderService
     ) {
     }
 
+    /**
+     * Fetches the customer and products for the order and returns an AugmentedOrder (dto) that we can use
+     * in the discount calculators.
+     */
     public function execute(Order $order): AugmentedOrder
     {
         $orderItems = $order->orderItems;

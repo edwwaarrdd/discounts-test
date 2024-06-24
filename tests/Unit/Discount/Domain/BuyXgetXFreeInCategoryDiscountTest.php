@@ -2,7 +2,7 @@
 
 namespace Test\Unit\Discount\Domain;
 
-use App\Discount\Domain\BuyXgetXFreeInCategoryDiscount;
+use App\Discount\Domain\BuyXGetXFreeInCategoryDiscount;
 use App\Discount\Domain\GivenDiscount;
 use App\Money\Money;
 use App\Order\Domain\AugmentedOrderItem;
@@ -18,7 +18,7 @@ class BuyXgetXFreeInCategoryDiscountTest extends TestCase
 
     public function testDiscountIsAppliedWhenBuyQuantityIsMet(): void
     {
-        $discount = new BuyXgetXFreeInCategoryDiscount(
+        $discount = new BuyXGetXFreeInCategoryDiscount(
             new CategoryId('1'),
             2,
             1
@@ -62,7 +62,7 @@ class BuyXgetXFreeInCategoryDiscountTest extends TestCase
 
     public function testDiscountIsAppliedToMultipleProductsWhenBuyQuantityIsMet(): void
     {
-        $discount = new BuyXgetXFreeInCategoryDiscount(
+        $discount = new BuyXGetXFreeInCategoryDiscount(
             new CategoryId('1'),
             2,
             1
@@ -121,7 +121,7 @@ class BuyXgetXFreeInCategoryDiscountTest extends TestCase
 
     public function testDiscountIsNotAppliedWhenBuyQuantityIsNotMet(): void
     {
-        $discount = new BuyXgetXFreeInCategoryDiscount(
+        $discount = new BuyXGetXFreeInCategoryDiscount(
             new CategoryId('1'),
             3,
             1
@@ -148,7 +148,7 @@ class BuyXgetXFreeInCategoryDiscountTest extends TestCase
 
     public function testDiscountIsNotAppliedWhenNoItemsFromCategory(): void
     {
-        $discount = new BuyXgetXFreeInCategoryDiscount(
+        $discount = new BuyXGetXFreeInCategoryDiscount(
             new CategoryId('1'),
             2,
             1
