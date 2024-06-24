@@ -1,6 +1,8 @@
 ## Requirements
 * **PHP 8.3**
+
 or
+
 * **Docker**
 
 ## Installation
@@ -23,6 +25,8 @@ http://localhost:8080/discounts/calculate
 To run the complete test suite:
 ```bash
 composer test:all
+or
+docker-compose exec slim composer test:all
 ```
 This runs:
 - php-cs-fixer
