@@ -9,6 +9,10 @@ use App\Order\Domain\Order;
 use App\Order\Domain\OrderItem;
 use App\Product\Domain\ProductRepositoryInterface;
 
+/**
+ * Fetches the customer and products for the order and returns an AugmentedOrder (dto) that we can use
+ * in the discount calculators.
+ */
 final readonly class AugmentOrderService
 {
     public function __construct(
@@ -17,10 +21,6 @@ final readonly class AugmentOrderService
     ) {
     }
 
-    /**
-     * Fetches the customer and products for the order and returns an AugmentedOrder (dto) that we can use
-     * in the discount calculators.
-     */
     public function execute(Order $order): AugmentedOrder
     {
         $orderItems = $order->orderItems;
